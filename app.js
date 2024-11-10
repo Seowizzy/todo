@@ -91,7 +91,7 @@ console.log(notes.completed);
 //       return;
 //     }
 
-//     ArrayList.push(INPUT.value);
+//     ArrayList.push(INPUT.value)
 //     console.log("Список дел:", ArrayList);
 //     LIST.insertAdjacentHTML(
 //       "beforeend",
