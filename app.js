@@ -61,24 +61,22 @@ document.addEventListener("keyup", (event) => {
     //   INPUT.value
     // }</span>
 
-    // if (FILTER.insertAdjacentHTML == 1) {
     FILTER = FILTER.insertAdjacentHTML(
       "beforeend",
       `<ul>
-            <span class="footer__filter__number" href="#/">${
-              Object.keys(notes).length
-            } пункт</span>
-            <a class="footer__filter__menu" href="#/">Все</a>
-            <a class="footer__filter__menu" href="#/">Активные</a>
-            <a class="footer__filter__menu" href="#/">Выполненые</a>
-            </ul>`
+      <span class="footer__filter__number" href="#/">${
+        Object.keys(notes).length
+      } пункт</span>
+      <a class="footer__filter__menu" href="#/">Все</a>
+      <a class="footer__filter__menu" href="#/">Активные</a>
+      <a class="footer__filter__menu" href="#/">Выполненые</a>
+      </ul>`
     );
-    // }
-    // Чтобы не повотярся футер INPUT.value = "";
-    // FILTER = function () {
+
+    INPUT.value = "";
+    //  Чтобы не повотярся футер FILTER = function () {
     //   Object.keys(notes).length;
     // };
-    // }
   }
 });
 // Не считается фильтр, зачеркнутый текст
