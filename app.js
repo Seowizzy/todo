@@ -35,7 +35,7 @@ function render() {
 
   todos.forEach((todo) => {
     ulContent += `<li id=${todo.id} class=${
-      todo.completed ? `table__list__text-through` : `table__list__text`
+      todo.completed ? `table__list__text__through` : `table__list__text`
     }>
     <div class="table__list__text__item">
     <input class="checkbox" id=${todo.id} type="checkbox"/>
@@ -48,24 +48,14 @@ function render() {
 
   document.addEventListener("change", (event) => {
     todos.forEach((todo) => {
-      if (todo.id == event.target.parentElement.firstElementChild.id) {
+      if (todo.id === event.target.parentElement.firstElementChild.id) {
         todo.completed = !todo.completed;
       }
       console.log(event);
       console.log(event.target.parentElement.firstElementChild.id);
+      console.log(todo.id);
+      console.log(todo.id == event.target.parentElement.firstElementChild.id);
+      console.log(todo.completed); // по консоли это меняется
     });
   });
 }
-
-// let ulThrough = "";
-//   if ((todo.completed = false)) {
-//     todos.map((todo) => {
-//       ulThrough += `<li id=${todo.id} class="table__list__text">
-// <div class="table__list__text__item">
-// <input class="checkbox-through" id=${todo.id} type="checkbox"/>
-// <span>${todo.title}</span>
-// </div>
-// </li>`;
-//     });
-//   }
-// listSelector.innerHTML = ulThrough;
