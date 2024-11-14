@@ -72,6 +72,18 @@
   margin-top: 2px;
 }
 
+.table__list__text-through {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  background-color: white;
+  width: 550px;
+  height: 45px;
+  justify-content: space-between;
+  margin-top: 2px;
+  text-decoration: line-through;
+}
+
 .table__list__text__item {
   display: flex;
   align-items: center;
@@ -83,14 +95,6 @@
   width: 30px;
   height: 30px;
   margin-left: 10px;
-}
-
-.checkbox-through {
-  margin: 0;
-  width: 30px;
-  height: 30px;
-  margin-left: 10px;
-  text-decoration: line-through;
 }
 
 .table__list__btn {
