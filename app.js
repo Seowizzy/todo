@@ -49,14 +49,14 @@ document.addEventListener("change", (event) => {
   todos.forEach((todo) => {
     console.log((todo.completed = !todo.completed));
     if (todo.id == event.parentElement.parentElement.id) {
-      todo.completed = !todo.completed;
+      todo.completed = true;
     }
     // написал туда todo.id в инпут чтобы перентэлемент работал (выдает ошибку в консоли)
     // Думаю, что проблема может быть что это родитель родителя,
     //  то есть сперва ul потом li потом чек
 
     // Добавляем строку с перечеркнутым значением если комптиды отличаются
-    if ((todo.completed = !todo.completed)) {
+    if ((todo.completed = true)) {
       ulThrough += `<li id=${todo.id} class="table__list__text">
         <div class="table__list__text__item">
         <input class="checkbox-through" id=${todo.id} type="checkbox"/>
