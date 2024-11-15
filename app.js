@@ -42,6 +42,7 @@ function render() {
     <span>${todo.title}</span>
     </div>
     </li>`;
+    console.log(todo.completed); // по консоли это меняется
 
     listSelector.innerHTML = ulContent;
   });
@@ -51,6 +52,7 @@ function render() {
       if (todo.id === event.target.parentElement.firstElementChild.id) {
         todo.completed = !todo.completed;
       }
+      render();
       console.log(event);
       console.log(event.target.parentElement.firstElementChild.id);
       console.log(todo.id);
