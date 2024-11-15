@@ -1,82 +1,63 @@
 "use strick";
 
-let INPUT = document.getElementById("input");
-let LIST = document.getElementById("list");
-const ArrayList = [];
-let CHECK = document.getElementById("CHECK");
-// const card = document.querySelector(".card");
-let FILTER = document.getElementById("filter");
-
-const notes = [];
-
-// function render() {
-//   for (let note in notes) {
-//     LIST.insertAdjacentHTML(
-//       "beforeend",
-//       `
-// <li class="table__list__text">
-//   <div class="table__list__text__item">
-//    <input type="checkbox" class="checkbox" id="checkbox" name="checkbox" />
-//    <span class="${
-//      notes.completed ? `text-decoration-line-through` : ``
-//    }"${notes.map(function (note) {})};></span>
-//    </div>
-//    <div class="table__list__btn">
-//    <button class="table__list__btn__good">&check;</button>
-//    <button class="table__list__btn__bad">&times;</button>
-//     </li>`
-//     );
-//   }
-// }
-// render();
+const inputSelector = document.getElementById("input");
+const listSelector = document.getElementById("list");
+const checkboxSelector = document.getElementById("checkbox");
+const filterSelector = document.getElementById("filter");
+const todos = [];
+const foterNumber = document.getElementById("footer");
 
 document.addEventListener("keyup", (event) => {
   if (event.code === "Enter") {
-    if (INPUT.value.length === 0) {
+    if (inputSelector.value.length === 0) {
       return;
     }
 
-    notes.push({
-      title: INPUT.value,
-      completed: false,
-    });
+    addText();
 
-    console.log(notes);
-
-    LIST.insertAdjacentHTML(
-      "beforeend",
-      `
-      <li class="table__list__text">
-      <div class="table__list__text__item">
-      <input type="checkbox" id="checkbox"  />
-      <span >${INPUT.value}</span>
-      </div>
-      <div class="table__list__btn">
-      <button class="table__list__btn__good">&check;</button>
-      <button class="table__list__btn__bad">&times;</button>
-      </li>`
-    );
-
-    // Если ложь - <span class="${notes.completed ? `` : `text-decoration-line-through`}>${
-    //   INPUT.value
-    // }</span>
-
-    FILTER = FILTER.insertAdjacentHTML(
-      "beforeend",
-      `<ul>
-      <span class="footer__filter__number" href="#/">${
-        Object.keys(notes).length
-      } пункт</span>
-      <a class="footer__filter__menu" href="#/">Все</a>
-      <a class="footer__filter__menu" href="#/">Активные</a>
-      <a class="footer__filter__menu" href="#/">Выполненые</a>
-      </ul>`
-    );
-
-    INPUT.value = "";
-    //  Чтобы не повотярся футер FILTER = function () {
-    //   Object.keys(notes).length;
-    // };
+    inputSelector.value = "";
   }
 });
-// Не считается фильтр, зачеркнутый текст
+
+function addText() {
+  todos.push({
+    title: inputSelector.value,
+    completed: false,
+    id: Math.random().toString(),
+  });
+  render();
+}
+
+function render() {
+  console.log(todos);
+
+  let ulContent = "";
+
+  todos.forEach((todo) => {
+    ulContent += `<li id=${todo.id} class=${
+      todo.completed ? `table__list__text__through` : `table__list__text`
+    }>
+    <div class="table__list__text__item">
+    <input class="checkbox" id=${todo.id} type="checkbox"/>
+    <span>${todo.title}</span>
+    </div>
+    </li>`;
+    console.log(todo.completed); // по консоли это меняется
+
+    listSelector.innerHTML = ulContent;
+  });
+
+  document.addEventListener("change", (event) => {
+    todos.forEach((todo) => {
+      if (todo.id === event.target.parentElement.firstElementChild.id) {
+        todo.completed = !todo.completed;
+      }
+      render();
+      console.log(event);
+      console.log(event.target.parentElement.firstElementChild.id);
+      console.log(todo.id);
+      console.log(todo.id == event.target.parentElement.firstElementChild.id);
+      console.log(todo.completed); // по консоли это меняется
+    });
+  });
+}

@@ -54,7 +54,7 @@
   height: 10px;
 }
 
-.footer__filter__menu {
+.footer__menu {
   text-align: center;
   padding: 5px;
   color: black;
@@ -70,6 +70,18 @@
   height: 45px;
   justify-content: space-between;
   margin-top: 2px;
+}
+
+.table__list__text__through {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  background-color: white;
+  width: 550px;
+  height: 45px;
+  justify-content: space-between;
+  margin-top: 2px;
+  text-decoration: line-through;
 }
 
 .table__list__text__item {
@@ -110,4 +122,49 @@
   color: white;
   cursor: pointer;
   font-weight: 700;
+}
+
+.text-decoration {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  background-color: white;
+  width: 550px;
+  height: 45px;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 400px;
+  flex-wrap: wrap;
+}
+.footer_tab {
+  display: none;
+}
+
+.footer_tab + label {
+  border: 1px solid grey;
+  border-radius: 5px 5px 0 0;
+  padding: 0.25em 1em;
+  display: inline-block;
+  background-color: grey;
+  color: #fff;
+  order: 1;
+  margin: 0 5px -1px 0;
+}
+
+.footer_tab:checked + label {
+  background-color: #fff;
+  color: #000;
+  border-bottom-color: #fff;
+  z-index: 0;
+}
+
+.footer_tab:checked + label + .footer {
+  display: block;
+  order: 1;
 }
