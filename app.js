@@ -48,17 +48,6 @@ function render() {
     listSelector.innerHTML = ulContent;
     console.log(todo.completed);
   });
-
-  // activeBtn.onclick = function (todo) {
-  //   if ((todo.completed = true)) {
-  //     ulContent += `<li id=${todo.id} class="table__list__text__through">
-  //     <div class="table__list__text__item">
-  //     <input class="checkbox" type="checkbox"/>
-  //     <span>${todo.title}</span>
-  //     </div>
-  //     </li>`;
-  //   }
-  // };
 }
 
 document.addEventListener("change", (event) => {
