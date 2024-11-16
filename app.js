@@ -4,8 +4,10 @@ const inputSelector = document.getElementById("input");
 const listSelector = document.getElementById("list");
 const checkboxSelector = document.getElementById("checkbox");
 const filterSelector = document.getElementById("filter");
-const foterNumber = document.getElementById("footer");
-const activeBtn = document.getElementById("footer__active");
+const footFilter = document.getElementById("filter");
+const allBtn = document.getElementById("all");
+const activeBtn = document.getElementById("active");
+const completedBtn = document.getElementById("completed");
 const todos = [];
 
 document.addEventListener("keyup", (event) => {
@@ -27,11 +29,10 @@ function addText() {
     id: Math.random().toString(),
   });
   render();
+  foot();
 }
 
 function render() {
-  console.log(todos);
-
   let ulContent = "";
 
   todos.forEach((todo) => {
@@ -39,32 +40,25 @@ function render() {
       todo.completed ? `table__list__text__through` : `table__list__text`
     }>
     <div class="table__list__text__item">
-    <input class="checkbox" type="checkbox"/>
+    <input class="checkbox" type="checkbox" ${todo.completed ? `checked` : ``}/>
     <span>${todo.title}</span>
     </div>
     </li>`;
-    console.log(todo.completed); // по консоли это меняется
 
     listSelector.innerHTML = ulContent;
+    console.log(todo.completed);
   });
 
-  // let ulContentCompleted = "";
-
-  // function addComplited() {
-  //   todos.forEach((todo) => {
-  //     if ((todo.completed = true)) {
-  //       ulContentCompleted += `<li id=${todo.id} class="table__list__text__through">
+  // activeBtn.onclick = function (todo) {
+  //   if ((todo.completed = true)) {
+  //     ulContent += `<li id=${todo.id} class="table__list__text__through">
   //     <div class="table__list__text__item">
   //     <input class="checkbox" type="checkbox"/>
   //     <span>${todo.title}</span>
   //     </div>
   //     </li>`;
-
-  //       activeBtn.onclick = ulContentCompleted;
-  //     }
-  //   });
-  // }
-  // addComplited();
+  //   }
+  // };
 }
 
 document.addEventListener("change", (event) => {
@@ -77,6 +71,20 @@ document.addEventListener("change", (event) => {
       todo.completed = !todo.completed;
       render();
     }
-    console.log(event);
   });
+  foot();
 });
+
+function foot() {
+  // let footerNumber = todos.length;
+  footFilter.innerHTML = `
+      <span href="#/">${
+        // footerNumber ? todos.length : todos.length - 1
+        todos.length
+      } пункт(а)</span>
+      <div class="filter_text">
+        <a class="footer__menu" id="all" href="#/">Все</a>
+        <a class="footer__menu" id="active" href="#/">Активные</a>
+        <a class="footer__menu" id="completed" href="#/">Выполненые</a>
+      </div>`;
+}
