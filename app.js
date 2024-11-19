@@ -8,7 +8,9 @@ const footFilter = document.getElementById("filter");
 const allBtn = document.getElementById("all");
 const activeBtn = document.getElementById("active");
 const completedBtn = document.getElementById("completed");
+const crossBtn = document.getElementById("cross");
 const todos = [];
+let filter = "ALL";
 
 document.addEventListener("keyup", (event) => {
   if (event.code === "Enter") {
@@ -29,7 +31,6 @@ function addText() {
     id: Math.random().toString(),
   });
   render();
-  foot();
 }
 
 function render() {
@@ -42,12 +43,14 @@ function render() {
     <div class="table__list__text__item">
     <input class="checkbox" type="checkbox" ${todo.completed ? `checked` : ``}/>
     <span>${todo.title}</span>
+    <div class="cross">X</div>
     </div>
     </li>`;
-
-    listSelector.innerHTML = ulContent;
-    console.log(todo.completed);
   });
+
+  listSelector.innerHTML = ulContent;
+
+  foot();
 }
 
 document.addEventListener("change", (event) => {
@@ -61,19 +64,39 @@ document.addEventListener("change", (event) => {
       render();
     }
   });
-  foot();
 });
 
 function foot() {
-  // let footerNumber = todos.length;
-  footFilter.innerHTML = `
-      <span href="#/">${
-        // footerNumber ? todos.length : todos.length - 1
-        todos.length
-      } пункт(а)</span>
+  if (todos.length > 0) {
+    const arrayCount = todos.map((todo) => {
+      if (todo.completed === false) {
+        return todo;
+      }
+    });
+
+    footFilter.innerHTML = `
+        <span href="#/">${arrayCount.length} пункт(а)</span>
       <div class="filter_text">
         <a class="footer__menu" id="all" href="#/">Все</a>
         <a class="footer__menu" id="active" href="#/">Активные</a>
         <a class="footer__menu" id="completed" href="#/">Выполненые</a>
-      </div>`;
+    </div>  
+  `;
+  } else {
+    footFilter.innerHTML = "";
+  }
 }
+
+document.addEventListener("click", (event) => {
+  const currentElement = event.target;
+
+  if (!currentElement.classList.contains("cross")) return;
+
+  todos.forEach((todo, index) => {
+    if (todo.id === currentElement.parentElement.parentElement.id) {
+      todos.splice(index, 1);
+    }
+  });
+
+  render();
+});
