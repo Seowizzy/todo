@@ -5,10 +5,10 @@ const listSelector = document.getElementById("list");
 const checkboxSelector = document.getElementById("checkbox");
 const filterSelector = document.getElementById("filter");
 const footFilter = document.getElementById("filter");
-const allBtn = document.getElementById("all");
-const activeBtn = document.getElementById("active");
-const completedBtn = document.getElementById("completed");
-const crossBtn = document.getElementById("cross");
+let allBtn = document.getElementById("all");
+let activeBtn = document.getElementById("active");
+let completedBtn = document.getElementById("completed");
+const counter = document.getElementById("counter");
 const todos = [];
 let filter = "ALL";
 
@@ -30,10 +30,10 @@ function addText() {
     completed: false,
     id: Math.random().toString(),
   });
-  render();
+  filterByTabs();
 }
 
-function render() {
+function render(todos) {
   let ulContent = "";
 
   todos.forEach((todo) => {
@@ -61,30 +61,20 @@ document.addEventListener("change", (event) => {
   todos.forEach((todo) => {
     if (todo.id === event.target.parentElement.parentElement.id) {
       todo.completed = !todo.completed;
-      render();
+      filterByTabs();
     }
   });
 });
 
 function foot() {
-  if (todos.length > 0) {
-    const arrayCount = todos.map((todo) => {
-      if (todo.completed === false) {
-        return todo;
-      }
-    });
+  let length = 0;
+  todos.forEach((todo) => {
+    if (todo.completed === false) {
+      length = length + 1;
+    }
+  });
 
-    footFilter.innerHTML = `
-        <span href="#/">${arrayCount.length} пункт(а)</span>
-      <div class="filter_text">
-        <a class="footer__menu" id="all" href="#/">Все</a>
-        <a class="footer__menu" id="active" href="#/">Активные</a>
-        <a class="footer__menu" id="completed" href="#/">Выполненые</a>
-    </div>  
-  `;
-  } else {
-    footFilter.innerHTML = "";
-  }
+  counter.innerHTML = `${length} `;
 }
 
 document.addEventListener("click", (event) => {
@@ -98,5 +88,34 @@ document.addEventListener("click", (event) => {
     }
   });
 
-  render();
+  filterByTabs();
 });
+
+allBtn.addEventListener("click", () => {
+  filterByTabs("ALLBTN");
+});
+
+activeBtn.addEventListener("click", () => {
+  filterByTabs("ACTIVE");
+});
+
+completedBtn.addEventListener("click", () => {
+  filterByTabs("COMPLETED");
+});
+
+function filterByTabs(tab = "ALLBTN") {
+  let filteredArray = [];
+
+  if (tab === "ALLBTN") {
+    filteredArray = todos;
+  }
+
+  if (tab === "ACTIVE") {
+    filteredArray = todos.filter((todo) => !todo.completed);
+  }
+
+  if (tab === "COMPLETED") {
+    filteredArray = todos.filter((todo) => todo.completed);
+  }
+  render(filteredArray);
+}
