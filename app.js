@@ -4,8 +4,13 @@ const inputSelector = document.getElementById("input");
 const listSelector = document.getElementById("list");
 const checkboxSelector = document.getElementById("checkbox");
 const filterSelector = document.getElementById("filter");
+const footFilter = document.getElementById("filter");
+let allBtn = document.getElementById("all");
+let activeBtn = document.getElementById("active");
+let completedBtn = document.getElementById("completed");
+const counter = document.getElementById("counter");
 const todos = [];
-const foterNumber = document.getElementById("footer");
+let filter = "ALL";
 
 document.addEventListener("keyup", (event) => {
   if (event.code === "Enter") {
@@ -25,12 +30,10 @@ function addText() {
     completed: false,
     id: Math.random().toString(),
   });
-  render();
+  filterByTabs();
 }
 
-function render() {
-  console.log(todos);
-
+function render(todos) {
   let ulContent = "";
 
   todos.forEach((todo) => {
@@ -38,26 +41,81 @@ function render() {
       todo.completed ? `table__list__text__through` : `table__list__text`
     }>
     <div class="table__list__text__item">
-    <input class="checkbox" id=${todo.id} type="checkbox"/>
+    <input class="checkbox" type="checkbox" ${todo.completed ? `checked` : ``}/>
     <span>${todo.title}</span>
+    <div class="cross">X</div>
     </div>
     </li>`;
-    console.log(todo.completed); // по консоли это меняется
-
-    listSelector.innerHTML = ulContent;
   });
 
-  document.addEventListener("change", (event) => {
-    todos.forEach((todo) => {
-      if (todo.id === event.target.parentElement.firstElementChild.id) {
-        todo.completed = !todo.completed;
-      }
-      render();
-      console.log(event);
-      console.log(event.target.parentElement.firstElementChild.id);
-      console.log(todo.id);
-      console.log(todo.id == event.target.parentElement.firstElementChild.id);
-      console.log(todo.completed); // по консоли это меняется
-    });
+  listSelector.innerHTML = ulContent;
+
+  foot();
+}
+
+document.addEventListener("change", (event) => {
+  if (event.code === "Enter") {
+    return;
+  }
+
+  todos.forEach((todo) => {
+    if (todo.id === event.target.parentElement.parentElement.id) {
+      todo.completed = !todo.completed;
+      filterByTabs();
+    }
   });
+});
+
+function foot() {
+  let length = 0;
+  todos.forEach((todo) => {
+    if (todo.completed === false) {
+      length = length + 1;
+    }
+  });
+
+  counter.innerHTML = `${length} `;
+}
+
+document.addEventListener("click", (event) => {
+  const currentElement = event.target;
+
+  if (!currentElement.classList.contains("cross")) return;
+
+  todos.forEach((todo, index) => {
+    if (todo.id === currentElement.parentElement.parentElement.id) {
+      todos.splice(index, 1);
+    }
+  });
+
+  filterByTabs();
+});
+
+allBtn.addEventListener("click", () => {
+  filterByTabs("ALLBTN");
+});
+
+activeBtn.addEventListener("click", () => {
+  filterByTabs("ACTIVE");
+});
+
+completedBtn.addEventListener("click", () => {
+  filterByTabs("COMPLETED");
+});
+
+function filterByTabs(tab = "ALLBTN") {
+  let filteredArray = [];
+
+  if (tab === "ALLBTN") {
+    filteredArray = todos;
+  }
+
+  if (tab === "ACTIVE") {
+    filteredArray = todos.filter((todo) => !todo.completed);
+  }
+
+  if (tab === "COMPLETED") {
+    filteredArray = todos.filter((todo) => todo.completed);
+  }
+  render(filteredArray);
 }
