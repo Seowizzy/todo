@@ -12,13 +12,18 @@
     <input id="input" class="table__main" placeholder="Что нужно сделать?" />
 
     <ul class="table__list" id="list"></ul>
-    <ul>
-      <span class="footer__number" id="footer_number" href="#/">пункт</span>
-      <a class="footer__menu" id="footer__menu" href="#/">Все</a>
-      <a class="footer__menu" id="footer__active" href="#/">Активные</a>
-      <a class="footer__menu" id="footer__passive" href="#/">Выполненые</a>
-    </ul>
 
-    <!-- <ul class="table__list__filter" id="filter_number"></ul> -->
+    <ul class="table__list__filter" id="filter">
+      <span href="#/">
+        Осталось
+        <span id="counter">0</span>
+        пункт(а)</span
+      >
+      <div class="filter_text">
+        <a class="footer__menu" id="all" href="#/">Все</a>
+        <a class="footer__menu" id="active" href="#/">Активные</a>
+        <a class="footer__menu" id="completed" href="#/">Выполненые</a>
+      </div>
+    </ul>
   </body>
 </html>
