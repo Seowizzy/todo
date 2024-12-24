@@ -5,11 +5,17 @@ const listSelector = document.getElementById("list");
 const checkboxSelector = document.getElementById("checkbox");
 const filterSelector = document.getElementById("filter");
 const footFilter = document.getElementById("filter");
-let allBtn = document.getElementById("all");
-let activeBtn = document.getElementById("active");
-let completedBtn = document.getElementById("completed");
+const allBtn = document.getElementById("all");
+const activeBtn = document.getElementById("active");
+const completedBtn = document.getElementById("completed");
 const counter = document.getElementById("counter");
+
+const ALL = 'ALLBTN';
+const ACTIVE = 'ACTIVE';
+const COMPLETED = 'COMPLETED';
+
 const todos = [];
+
 let filter = "ALL";
 
 document.addEventListener("keyup", (event) => {
@@ -34,17 +40,22 @@ function addText() {
 }
 
 function render(todos) {
-  let ulContent = "";
+  let ulContent = '';
 
   todos.forEach((todo) => {
-    ulContent += `<li id=${todo.id} class=${
-      todo.completed ? `table__list__text__through` : `table__list__text`
+    ulContent += `
+    <li id=${todo.id} class=${
+      todo.completed
+        ? `table__list__text__through`
+        : `table__list__text`
     }>
-    <div class="table__list__text__item">
-    <input class="checkbox" type="checkbox" ${todo.completed ? `checked` : ``}/>
-    <span>${todo.title}</span>
-    <div class="cross">X</div>
-    </div>
+      <div class="table__list__text__item">
+        <input class="checkbox" type="checkbox" ${todo.completed ? `checked` : ``}/>
+
+        <span>${todo.title}</span>
+
+        <img class="cross" src='crossImg.png' alt='crossImg' />
+      </div>
     </li>`;
   });
 
@@ -61,18 +72,37 @@ document.addEventListener("change", (event) => {
   todos.forEach((todo) => {
     if (todo.id === event.target.parentElement.parentElement.id) {
       todo.completed = !todo.completed;
-      filterByTabs();
+      filterByTabs(filter);
     }
   });
 });
 
 function foot() {
   let length = 0;
-  todos.forEach((todo) => {
-    if (todo.completed === false) {
-      length = length + 1;
-    }
-  });
+
+  if (filter === ALL) {
+    todos.forEach((todo) => {
+      if (todo.completed === false) {
+        length = length + 1;
+      }
+    });
+  }
+
+  if (filter === ACTIVE) {
+    todos.forEach((todo) => {
+      if (todo.completed === false) {
+        length = length + 1;
+      }
+    });
+  }
+
+  if (filter === COMPLETED) {
+    todos.forEach((todo) => {
+      if (todo.completed === true) {
+        length = length + 1;
+      }
+    });
+  }
 
   counter.innerHTML = `${length} `;
 }
@@ -88,7 +118,7 @@ document.addEventListener("click", (event) => {
     }
   });
 
-  filterByTabs();
+  filterByTabs(filter);
 });
 
 allBtn.addEventListener("click", () => {
@@ -106,16 +136,20 @@ completedBtn.addEventListener("click", () => {
 function filterByTabs(tab = "ALLBTN") {
   let filteredArray = [];
 
-  if (tab === "ALLBTN") {
+  if (tab === ALL) {
+    filter = ALL;
     filteredArray = todos;
   }
 
-  if (tab === "ACTIVE") {
+  if (tab === ACTIVE) {
+    filter = ACTIVE;
     filteredArray = todos.filter((todo) => !todo.completed);
   }
 
-  if (tab === "COMPLETED") {
+  if (tab === COMPLETED) {
+    filter = COMPLETED;
     filteredArray = todos.filter((todo) => todo.completed);
   }
+
   render(filteredArray);
 }
