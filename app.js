@@ -133,22 +133,31 @@ completedBtn.addEventListener("click", () => {
   filterByTabs("COMPLETED");
 });
 
-function filterByTabs(tab = "ALLBTN") {
+function filterByTabs(tab = ALL) {
   let filteredArray = [];
 
   if (tab === ALL) {
     filter = ALL;
     filteredArray = todos;
+    allBtn.classList.add('active');
+    activeBtn.classList.remove('active');
+    completedBtn.classList.remove('active');
   }
 
   if (tab === ACTIVE) {
     filter = ACTIVE;
     filteredArray = todos.filter((todo) => !todo.completed);
+    activeBtn.classList.add('active');
+    allBtn.classList.remove('active');
+    completedBtn.classList.remove('active');
   }
 
   if (tab === COMPLETED) {
     filter = COMPLETED;
     filteredArray = todos.filter((todo) => todo.completed);
+    completedBtn .classList.add('active');
+    activeBtn.classList.remove('active');
+    allBtn.classList.remove('active');
   }
 
   render(filteredArray);
