@@ -63,6 +63,7 @@
   width: 30px;
   height: 30px;
   margin-left: 10px;
+  cursor: pointer;
 }
 
 .cross {
@@ -75,17 +76,17 @@
 
 .table__list__filter {
   display: flex;
-  margin: 0;
+  justify-content: center;
+  align-items: center;
   width: 550px;
   height: 45px;
+  margin: auto;
   padding: 0;
-  justify-content: space-between;
   font-size: 19px;
-  align-items: center;
 }
 
 .filter_text {
-  padding-right: 120px;
+  padding-left: 40px;
 }
 
 .active {

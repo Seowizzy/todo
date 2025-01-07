@@ -23,9 +23,9 @@ document.addEventListener("keyup", (event) => {
     if (inputSelector.value.length === 0) {
       return;
     }
-
+    
     addText();
-
+    
     inputSelector.value = "";
   }
 });
@@ -41,26 +41,26 @@ function addText() {
 
 function render(todos) {
   let ulContent = '';
-
+  
   todos.forEach((todo) => {
     ulContent += `
     <li id=${todo.id} class=${
       todo.completed
-        ? `table__list__text__through`
-        : `table__list__text`
+      ? `table__list__text__through`
+      : `table__list__text`
     }>
-      <div class="table__list__text__item">
-        <input class="checkbox" type="checkbox" ${todo.completed ? `checked` : ``}/>
-
-        <span>${todo.title}</span>
-
-        <img class="cross" src='crossImg.png' alt='crossImg' />
-      </div>
+    <div class="table__list__text__item">
+    <input class="checkbox" type="checkbox" ${todo.completed ? `checked` : ``}/>
+    
+    <span>${todo.title}</span>
+    
+    <img class="cross" src='crossImg.png' alt='crossImg' />
+    </div>
     </li>`;
   });
-
+  
   listSelector.innerHTML = ulContent;
-
+  
   foot();
 }
 
@@ -87,7 +87,7 @@ function foot() {
       }
     });
   }
-
+  
   if (filter === ACTIVE) {
     todos.forEach((todo) => {
       if (todo.completed === false) {
@@ -95,7 +95,7 @@ function foot() {
       }
     });
   }
-
+  
   if (filter === COMPLETED) {
     todos.forEach((todo) => {
       if (todo.completed === true) {
@@ -103,21 +103,21 @@ function foot() {
       }
     });
   }
-
+  
   counter.innerHTML = `${length} `;
 }
 
 document.addEventListener("click", (event) => {
   const currentElement = event.target;
-
+  
   if (!currentElement.classList.contains("cross")) return;
-
+  
   todos.forEach((todo, index) => {
     if (todo.id === currentElement.parentElement.parentElement.id) {
       todos.splice(index, 1);
     }
   });
-
+  
   filterByTabs(filter);
 });
 
@@ -135,7 +135,7 @@ completedBtn.addEventListener("click", () => {
 
 function filterByTabs(tab = ALL) {
   let filteredArray = [];
-
+  
   if (tab === ALL) {
     filter = ALL;
     filteredArray = todos;
@@ -143,7 +143,7 @@ function filterByTabs(tab = ALL) {
     activeBtn.classList.remove('active');
     completedBtn.classList.remove('active');
   }
-
+  
   if (tab === ACTIVE) {
     filter = ACTIVE;
     filteredArray = todos.filter((todo) => !todo.completed);
@@ -151,7 +151,7 @@ function filterByTabs(tab = ALL) {
     allBtn.classList.remove('active');
     completedBtn.classList.remove('active');
   }
-
+  
   if (tab === COMPLETED) {
     filter = COMPLETED;
     filteredArray = todos.filter((todo) => todo.completed);
@@ -159,6 +159,6 @@ function filterByTabs(tab = ALL) {
     activeBtn.classList.remove('active');
     allBtn.classList.remove('active');
   }
-
+  
   render(filteredArray);
 }
