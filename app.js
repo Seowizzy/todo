@@ -1,5 +1,6 @@
 "use strick";
 
+const logoSelector = document.getElementById("logo")
 const inputSelector = document.getElementById("input");
 const listSelector = document.getElementById("list");
 const checkboxSelector = document.getElementById("checkbox");
@@ -17,6 +18,10 @@ const COMPLETED = 'COMPLETED';
 const todos = [];
 
 let filter = "ALL";
+
+logoSelector.addEventListener("click", (event) => {
+  location.reload();
+})
 
 document.addEventListener("keyup", (event) => {
   if (event.code === "Enter") {
