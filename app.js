@@ -19,19 +19,17 @@ const todos = [];
 
 let filter = "ALL";
 
-logoSelector.addEventListener("click", (event) => {
+logoSelector.addEventListener("click", () => {
   location.reload();
 })
 
 document.addEventListener("keyup", (event) => {
   if (event.code === "Enter") {
-    if (inputSelector.value.length === 0) {
+    if (inputSelector.value.trim() === "") {
       return;
     }
-    
+
     addText();
-    
-    inputSelector.value = "";
   }
 });
 
@@ -41,6 +39,9 @@ function addText() {
     completed: false,
     id: Math.random().toString(),
   });
+
+  inputSelector.value = "";
+  
   filterByTabs();
 }
 
